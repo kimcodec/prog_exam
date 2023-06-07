@@ -55,7 +55,9 @@ void heapify_first(QVector<int>& arr, int n, int i) {
     // Если наибольший элемент не является корнем
     if (largest != i)
     {
-    arr.swapItemsAt(i, largest);
+    int tmp = arr[i];// перестановка
+    arr[i] = arr[largest];
+    arr[largest] = tmp;
     // Применяем просеивание вниз рекурсивно для затронутой под-пирамиды
     heapify_first(arr, n, largest);
     }
@@ -78,7 +80,9 @@ bool heapify(QVector<int>& arr, int n, int i, int& max_step) {
     // Если наибольший элемент не является корнем
     if (largest != i)
     {
-    arr.swapItemsAt(i, largest);
+    int tmp = arr[i];// перестановка
+    arr[i] = arr[largest];
+    arr[largest] = tmp;
     if (max_step == 0 || --max_step == 0) return false;
     // Применяем просеивание вниз рекурсивно для затронутой под-пирамиды
     heapify(arr, n, largest, max_step);
@@ -94,7 +98,10 @@ void heapSort(QVector<int>& arr, int& max_step) {
 
     // Извлечение элементов из пирамиды по одному и перемещение их в конец
     for (int i = arr.size() - 1; i >= 0; i--) {
-        arr.swapItemsAt(0, i); // Перемещаем текущий корень в конец
+        int tmp = arr[0];// перестановка
+        arr[0] = arr[i];
+        arr[i] = tmp;
+
         if (max_step == 0 || --max_step == 0) return;
         if (!heapify(arr, i, 0, max_step)) return;
     }
